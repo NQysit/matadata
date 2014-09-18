@@ -1,0 +1,47 @@
+
+{% extends "bootstrap/base.html" %}
+{% block title %} Flask Project {% endblock %}
+
+{% block head %}
+{{ super () }}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block navbar %}
+<div class="header"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form enctype="multipart/form-data" action="upload" method="post">
+                <div class="form-group">
+                    <input name="file" id="file-1a" type="file" multiple=true class="file" data-preview-file-type="any" data-overwrite-initial="false">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{url_for('.static', filename='js/fileinput.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('.static', filename='js/clientlogic.js')}}"></script>
+{% endblock %}
+
+{% block styles %}
+{{ super() }} <!-- The js code from bootstrap is loaded first -->
+<link rel="stylesheet" href="{{url_for('.static', filename='css/style.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='css/fileinput.min.css')}}">
+{% endblock %}
