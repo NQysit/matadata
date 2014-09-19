@@ -1,9 +1,10 @@
 
 import os
 import sys
+import time
 
 from flask import Flask, render_template, send_from_directory, request\
-, flash, redirect, url_for
+, flash, redirect, url_for, make_response, session
 
 from werkzeug import secure_filename
 
@@ -20,19 +21,27 @@ app.config.from_object('config.DevelopmentConfig')
 @app.route('/')
 def index():
     return render_template('index.html')
-    
-@app.route('/<name>')
-def send_back_pdf(name):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename=name)
-    
+
+@app.route('/your_pdf_is_ready')
+def send_back_pdf():
+    if 'path' in session:
+        path, name = os.path.split(session['path'])
+        print(path, name)
+        response = make_response(send_from_directory(path, filename=name))
+        os.remove(session['path'])
+        del session['path']
+        return response
+    return redirect(url_for('.index'))
+
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['file']
-    if file.filename.split('.')[-1] == 'pdf':
-        name = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
-        name = clean_pdf(os.path.join(app.config['UPLOAD_FOLDER'], name))
-        return redirect(url_for('.send_back_pdf', name=name))
+    name = secure_filename(file.filename)
+    if name.endswith('.pdf'):
+        path = os.path.join(app.config['UPLOAD_FOLDER'], name)
+        file.save(path)
+        session['path'] = clean_pdf(path)
+        return redirect(url_for('.send_back_pdf'))
     else:
         flash('Your file does not seem valid')
         return redirect(url_for('.index'))

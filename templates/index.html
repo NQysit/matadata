@@ -6,42 +6,89 @@
 {{ super () }}
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-{% endblock %}
-
-{% block navbar %}
-<div class="header"></div>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="author" content="">
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-danger" role="alert">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <form enctype="multipart/form-data" action="upload" method="post">
-                <div class="form-group">
-                    <input name="file" id="file-1a" type="file" multiple=true class="file" data-preview-file-type="any" data-overwrite-initial="false">
-                </div>
-            </form>
+<section class="success" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Matadata</h2>
+                <hr class="star-light">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <p></p>
+            </div>
+            <div class="col-lg-4">
+                <p></p>
+            </div>
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <a href="#" class="btn btn-lg btn-outline">
+                    <i class="fa fa-download"></i> GitHub
+                </a>
+            </div>
         </div>
     </div>
+</section>
+
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form enctype="multipart/form-data" action="upload" method="post">
+                    <div class="form-group">
+                        <input name="file" id="file-1a" type="file" multiple=true class="file hide" data-preview-file-type="any" data-overwrite-initial="false">
+                    </div>
+                    <div class="upload">
+                        <span> Click here to clean your file! </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="text-center">
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    Copyright &copy; Matadata 2014
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="scroll-top page-scroll visible-xs visble-sm">
+    <a class="btn btn-primary" href="#about">
+        <i class="fa fa-chevron-up"></i>
+    </a>
 </div>
 {% endblock %}
 
-
 {% block scripts %}
 {{ super() }}
-<script type="text/javascript" src="{{url_for('.static', filename='js/fileinput.min.js')}}"></script>
-<script type="text/javascript" src="{{url_for('.static', filename='js/clientlogic.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('.static', filename='js/clientlogic.js')}}"></script>
 {% endblock %}
 
 {% block styles %}
-{{ super() }} <!-- The js code from bootstrap is loaded first -->
-<link rel="stylesheet" href="{{url_for('.static', filename='css/style.css')}}">
-<link rel="stylesheet" href="{{url_for('.static', filename='css/fileinput.min.css')}}">
+{{ super() }}
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/freelancer.css')}}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 {% endblock %}

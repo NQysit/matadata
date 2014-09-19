@@ -4,13 +4,12 @@ import os
 
 METAPAT = re.compile(b'="[\D|\s]*"')
 
-def clean_pdf(path, overwrite=False):
+def clean_pdf(path):
     if not os.path.isfile(path):
         raise FileNotFoundError
-    newname = 'clean_' + os.path.split(path)[1]
-    saveto  = os.path.join(os.path.split(path)[0], newname) 
-    if overwrite:
-        saveto = path
+    base, name = os.path.split(path)
+    newname = name.replace('.pdf', '_cleaned.pdf')
+    saveto  = os.path.join(base, newname)
     open(saveto, 'wb').write(METAPAT.sub(b'=""', open(path, 'rb').read()))
-
-    return newname
+    os.remove(path)
+    return os.path.join(base, newname)
