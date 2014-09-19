@@ -22,10 +22,10 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-lg-offset-2">
-                <p></p>
+                <p> Metadata is a light tool that wipes off the metadata of your files. Supported files so far: PDF </p>
             </div>
             <div class="col-lg-4">
-                <p></p>
+                <p> We don't store anything about you, neither your files nor your metadata.</p>
             </div>
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <a href="#" class="btn btn-lg btn-outline">
@@ -40,13 +40,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-danger" role="alert">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
                 <form enctype="multipart/form-data" action="upload" method="post">
                     <div class="form-group">
                         <input name="file" id="file-1a" type="file" multiple=true class="file hide" data-preview-file-type="any" data-overwrite-initial="false">
@@ -54,6 +47,19 @@
                     <div class="upload">
                         <span> Click here to clean your file! </span>
                     </div>
+                    {% if ready %}
+                    <div class="download">
+                        <span class="glyphicon glyphicon-file"></span>
+                        <a class="download" href="./your_pdf_is_ready"> Your file is ready </a>
+                    </div>
+                    {% endif %}
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                 </form>
             </div>
         </div>

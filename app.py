@@ -20,13 +20,17 @@ app.config.from_object('config.DevelopmentConfig')
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if 'ready' in session:
+        ready = session['ready']
+        del session['ready']
+    else:
+        ready = False
+    return render_template('index.html', ready=ready)
 
 @app.route('/your_pdf_is_ready')
-def send_back_pdf():
+def download_pdf():
     if 'path' in session:
         path, name = os.path.split(session['path'])
-        print(path, name)
         response = make_response(send_from_directory(path, filename=name))
         os.remove(session['path'])
         del session['path']
@@ -40,11 +44,11 @@ def upload():
     if name.endswith('.pdf'):
         path = os.path.join(app.config['UPLOAD_FOLDER'], name)
         file.save(path)
-        session['path'] = clean_pdf(path)
-        return redirect(url_for('.send_back_pdf'))
+        session['path']  = clean_pdf(path)
+        session['ready'] = True
     else:
         flash('Your file does not seem valid')
-        return redirect(url_for('.index'))
+    return redirect(url_for('.index'))
 
 @app.route('/static/<folder>/<name>')
 def serve(folder, name):
