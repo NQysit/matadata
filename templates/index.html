@@ -1,6 +1,6 @@
 
 {% extends "bootstrap/base.html" %}
-{% block title %} Flask Project {% endblock %}
+{% block title %} Matadata {% endblock %}
 
 {% block head %}
 {{ super () }}
@@ -28,7 +28,7 @@
                 <p> We don't store anything about you, neither your files nor your metadata.</p>
             </div>
             <div class="col-lg-8 col-lg-offset-2 text-center">
-                <a href="#" class="btn btn-lg btn-outline">
+                <a href="https://github.com/Margaruga/NQysit_Metadata" class="btn btn-lg btn-outline" target="_blank">
                     <i class="fa fa-download"></i> GitHub
                 </a>
             </div>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <input name="file" id="file-1a" type="file" multiple=true class="file hide" data-preview-file-type="any" data-overwrite-initial="false">
                     </div>
-                    <div class="upload">
+                    <div class="upload btn btn-danger">
                         <span> Click here to clean your file! </span>
                     </div>
                     {% if ready %}
@@ -71,7 +71,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    Copyright &copy; Matadata 2014
+                    <a href="#" target="_blank"> Python </a> -
+                    <a href="#" target="_blank"> Flask </a> -
+                    <a href="#" target="_blank"> NQysit Software </a>
+                    <br> Copyright &copy; Matadata 2014
                 </div>
             </div>
         </div>
