@@ -10,7 +10,7 @@ from werkzeug import secure_filename
 
 from flask.ext.bootstrap import Bootstrap
 
-from matapdf import clean_pdf
+from metacleaner import pdfcleaner
 
 app = Flask(__name__)
 
@@ -44,7 +44,7 @@ def upload():
     if name.endswith('.pdf'):
         path = os.path.join(app.config['UPLOAD_FOLDER'], name)
         file.save(path)
-        session['path']  = clean_pdf(path)
+        session['path']  = pdfcleaner(path)
         session['ready'] = True
     else:
         flash('Your file does not seem valid')

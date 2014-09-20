@@ -4,7 +4,7 @@ import os
 
 METAPAT = re.compile(b'="[\D|\s]*"')
 
-def clean_pdf(path):
+def pdfcleaner(path):
     if not os.path.isfile(path):
         raise FileNotFoundError
     base, name = os.path.split(path)
